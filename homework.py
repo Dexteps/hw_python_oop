@@ -57,7 +57,6 @@ class Training:
 
 class Running(Training):
     """Тренировка: бег."""
-
     CALORIES_MEAN_SPEED_MULTIPLIER: int = 18
     CALORIES_MEAN_SPEED_SHIFT: float = 1.79
 
@@ -94,7 +93,6 @@ class SportsWalking(Training):
 
 class Swimming(Training):
     """Тренировка: плавание."""
-
     COEFF_FORMUL_CALORIES_ONE: float = 1.1
     COEFF_FORMUL_CALORIES_TWO: int = 2
     LEN_STEP: float = 1.38
