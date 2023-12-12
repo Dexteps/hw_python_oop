@@ -129,7 +129,7 @@ TYPES_TRAINING: dict[str, type[Training]] = {'SWM': Swimming,
                                              }
 
 
-def read_package(workout_type: str, data: list) -> Training:
+def read_package(workout_type: str, data: int) -> Training:
     """Прочитать данные полученные от датчиков."""
 
     if workout_type not in TYPES_TRAINING:
