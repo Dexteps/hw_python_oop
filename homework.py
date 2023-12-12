@@ -12,11 +12,11 @@ class InfoMessage:
     calories: float
 
     PHRASES_TO_RETURN: str = (
-        "Тип тренировки: {training_type}; "
-        "Длительность: {duration:.3f} ч.; "
-        "Дистанция: {distance:.3f} км; "
-        "Ср. скорость: {speed:.3f} км/ч; "
-        "Потрачено ккал: {calories:.3f}."
+        'Тип тренировки: {training_type}; '
+        'Длительность: {duration:.3f} ч.; '
+        'Дистанция: {distance:.3f} км; '
+        'Ср. скорость: {speed:.3f} км/ч;.'
+        'Потрачено ккал: {calories:.3f}.'
     )
 
     def get_message(self):
@@ -72,13 +72,13 @@ class Running(Training):
 
     def get_spent_calories(self) -> float:
         return (
-            (
-                self.CALORIES_MEAN_SPEED_MULTIPLIER * self.get_mean_speed()
-                + self.CALORIES_MEAN_SPEED_SHIFT
-            )
+            (self.CALORIES_MEAN_SPEED_MULTIPLIER
+             * self.get_mean_speed()
+             + self.CALORIES_MEAN_SPEED_SHIFT)
             * self.weight
             / self.M_IN_KM
-            * (self.duration * self.H_IN_M)
+            * (self.duration
+               * self.H_IN_M)
         )
 
 
@@ -110,8 +110,8 @@ class SportsWalking(Training):
 class Swimming(Training):
     """Тренировка: плавание."""
 
-    COEFFICIENT_SHIFT: float = 1.1
-    RATIO_MULTIPLIER: float = 2
+    AVERAGE_SPEED_RATIO: float = 1.1
+    RATIO_WEIGHT: float = 2
     LEN_STEP: float = 1.38
 
     def __init__(
@@ -127,23 +127,27 @@ class Swimming(Training):
 
     def get_mean_speed(self) -> float:
         """Получить среднюю скорость движения."""
-        return (self.length_pool * self.count_pool
-                / self.M_IN_KM / self.duration)
+        return (
+            self.length_pool
+            * self.count_pool
+            / self.M_IN_KM
+            / self.duration
+        )
 
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
         return (
-            (self.get_mean_speed() + self.COEFFICIENT_SHIFT)
-            * self.RATIO_MULTIPLIER
+            (self.get_mean_speed() + self.AVERAGE_SPEED_RATIO)
+            * self.RATIO_WEIGHT
             * self.weight
             * self.duration
         )
 
 
 TYPES_TRAINING: dict[str, type[Training]] = {
-    "SWM": Swimming,
-    "RUN": Running,
-    "WLK": SportsWalking,
+    'SWM': Swimming,
+    'RUN': Running,
+    'WLK': SportsWalking,
 }
 
 
@@ -151,20 +155,20 @@ def read_package(workout_type: str, data: list[int]) -> Training:
     """Прочитать данные полученные от датчиков."""
 
     if workout_type not in TYPES_TRAINING:
-        raise ValueError(f'Не ожиданный тип тренировки "{workout_type}"')
+        raise ValueError(f'Неожиданный тип тренировки "{workout_type}"')
     return TYPES_TRAINING[workout_type](*data)
 
 
 def main(training: Training) -> None:
     """Главная функция."""
-    print((training.show_training_info()).get_message())
+    print(training.show_training_info().get_message())
 
 
 if __name__ == "__main__":
     packages = [
-        ("SWM", [720, 1, 80, 25, 40]),
-        ("RUN", [15000, 1, 75]),
-        ("WLK", [9000, 1, 75, 180]),
+        ('SWM', [720, 1, 80, 25, 40]),
+        ('RUN', [15000, 1, 75]),
+        ('WLK', [9000, 1, 75, 180]),
     ]
 
     for workout_type, data in packages:
